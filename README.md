@@ -1,2 +1,2 @@
-# kelompok1
-pembuatan game menggunakan python
+Numerix Quest
+Deskripsi game : Numerix Quest adalah permainan teka-teki matematika dimana pemain harus menjawab soal-soal yang muncul. Pemain bisa mendapatkan 50 poin maksimal dengan 5 soal. Jika pemain salah menebak, poin pemain akan berkurang. Tujuannya adalah untuk menjawab soal sebelum kehabisan waktu. Selamat bermain dan semoga beruntung! Tata Cara Permainan : 1. Pemain akan mengisi nama yang akan digunakan. 2. Lalu Pemain dapat memilih Level yang ini dimainkan. 3. Lalu akan muncul soal-soal yang harus dijawab yang berjumlah 5 soal. 4. Jika pemain menjawab benar maka pemain akan mendapatkan 10 poin. 5. Jika pemain menjawab salah maka tidak akan mendapatkan poin atau 0 . 6. jika menjawab setelah waktu habis juga mendapat poin 0. 7. Permainan berakhir ketika pemain telah menjawab semua soal dan akan muncul poin akhir pemain.

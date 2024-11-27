@@ -1,11 +1,18 @@
 import random
 import time
 
+class Player:
+    def __init__(self, name):
+        self.name = name
+        self.score = {'1': 0, '2': 0, '3': 0}  # Skor berdasarkan level
+
+    def update_score(self, level, score):
+        self.score[level] = max(self.score[level], score)  # Memperbarui skor untuk level tertentu
+
 class MathGame:
     def __init__(self):
-        self.players = {}  # Dictionary untuk menyimpan data pemain
+        self.players = {}  # Dictionary untuk menyimpan objek pemain
         self.current_player = None
-        self.score = 0
         self.questions = 5
         self.max_number = 10
         self.operators = ['+', '-']
@@ -14,20 +21,21 @@ class MathGame:
         if player_name in self.players:
             print(f"Pemain {player_name} sudah ada.")
         else:
-            self.players[player_name] = {'score': {'1': 0, '2': 0, '3': 0}}
+            self.players[player_name] = Player(player_name)  # Membuat objek Player baru
             print(f"Pemain {player_name} berhasil ditambahkan.")
 
     def read_players(self):
         if self.players:
             print("\nDaftar Pemain:")
-            for player in self.players.keys():
-                print(f"- {player}")
+            for player in self.players.values():
+                print(f"- {player.name}")
         else:
             print("Belum ada pemain yang terdaftar.")
 
     def update_player(self, player_name, new_name):
         if player_name in self.players:
-            self.players[new_name] = self.players.pop(player_name)
+            self.players[new_name] = self.players.pop(player_name)  # Ubah nama pemain
+            self.players[new_name].name = new_name
             print(f"Nama pemain {player_name} berhasil diubah menjadi {new_name}.")
         else:
             print(f"Pemain {player_name} tidak ditemukan.")
@@ -46,11 +54,11 @@ class MathGame:
                 print(f"\nLevel {level}:")
                 sorted_players = sorted(
                     self.players.items(),
-                    key=lambda x: x[1]['score'][level],
+                    key=lambda x: x[1].score[level],
                     reverse=True
                 )
                 for rank, (player, data) in enumerate(sorted_players, start=1):
-                    print(f"{rank}. {player}: {data['score'][level]} poin")
+                    print(f"{rank}. {data.name}: {data.score[level]} poin")
         else:
             print("Belum ada pemain dengan skor.")
 
@@ -70,8 +78,7 @@ class MathGame:
             self.operators = ['+', '-']
 
         if self.current_player:
-            # Inisialisasi skor level jika belum ada
-            self.players[self.current_player]['score'].setdefault(level, 0)
+            self.players[self.current_player].score.setdefault(level, 0)  # Inisialisasi skor level jika belum ada
 
     def generate_question(self):
         num1 = random.randint(1, self.max_number)
@@ -119,10 +126,7 @@ class MathGame:
         print(f"\nSkor Akhir Anda untuk Level {self.current_level}: {self.score}")
 
         # Update skor hanya untuk level yang dimainkan
-        self.players[self.current_player]['score'][self.current_level] = max(
-            self.score, 
-            self.players[self.current_player]['score'][self.current_level]
-        )
+        self.players[self.current_player].update_score(self.current_level, self.score)
         print("Terima kasih telah bermain!")
 
 def main():
